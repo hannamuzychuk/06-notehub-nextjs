@@ -1,6 +1,6 @@
 import css from './Footer.module.css'
 
-const Footer = () => {
+export default function Footer() {
     return <footer className={css.footer}>
   <div className={css.content}>
     <p>© {new Date().getFullYear()} NoteHub. All rights reserved.</p>
@@ -14,5 +14,3 @@ const Footer = () => {
   </div>
 </footer>
 }
-
-export default Footer;

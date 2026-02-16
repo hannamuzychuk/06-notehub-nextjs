@@ -3,17 +3,17 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchNotes, type FetchNotesResponse } from '../../lib/api';
-import css from '../../app/page.module.css';
+import css from './notes.module.css';
 import NoteList from '../../components/NoteList/NoteList';
 import SearchBox from '../../components/SearchBox/SearchBox';
-// import Modal from '../../components/Modal/Modal';
 import NoteForm from '../../components/NoteForm/NoteForm';
-// import Pagination from '../../components/Pagination/Pagination';
 import { useDebouncedCallback } from "use-debounce";
-// import toast, { Toaster } from "react-hot-toast";
-// import { ErrorMessage } from "formik";
-// import Loader from "../Loader/Loader";
-// import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import Modal from "@/components/Modal/Modal";
+import Pagination from "@/components/Pagination/Pagination";
+import { Toaster } from "react-hot-toast";
+import { ErrorMessage } from "formik";
+import Loader from '../loading';
+
 
 
 export default function App() {
@@ -36,26 +36,23 @@ export default function App() {
   const { data, isLoading, isError } = useQuery<FetchNotesResponse>({
     queryKey: ["notes", page, search],
       queryFn: () => fetchNotes(page, search),
-      // enabled: search !== '',
      placeholderData: keepPreviousData,
   });
-    
-  
     
   return (
     <div className={css.app}>
           <header className={css.toolbar}>
               
               <SearchBox value={searchInput} onChange={handleSearchChange} />
-              {/* <Toaster position='top-right' />  */}
-              {/* {isLoading && <Loader />}
-              {isError && <ErrorMessage/>} */}
+              {<Toaster position='top-right' />}
+              {isLoading && <Loader />}
+              {isError && <ErrorMessage name={""}/>} 
               
-          {/* {data && data.totalPages > 1 && (
+          {data && data.totalPages > 1 && (
           <Pagination pageCount={data.totalPages}
            currentPage={page} onPageChange={setPage} />
             )}
-               */}
+              
               <button className={css.button} onClick={() => setIsOpen(true)}>
           Create note +
         </button>
@@ -69,11 +66,11 @@ export default function App() {
           <p>Loading notes...</p>
     ))}
 
-      {/* {isOpen && (
+      {isOpen && (
         <Modal onClose={()=> setIsOpen(false)}>
           <NoteForm onClose={()=> setIsOpen(false)} />
         </Modal>
-      )} */}
+      )}
     </div>
   );
 }

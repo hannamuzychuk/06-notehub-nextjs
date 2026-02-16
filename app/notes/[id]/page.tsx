@@ -1,12 +1,13 @@
-import { QueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getSingleNote } from "@/lib/api";
-import NotesClient from "./Notes.client";
+
+import NoteDetailsClient from "./NodeDetails.client";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-const NoteDetails = async ({ params }: Props) => {
+export default async function NoteDetails({ params }: Props) {
   const { id } = await params;
   const queryClient = new QueryClient();
 
@@ -15,7 +16,8 @@ const NoteDetails = async ({ params }: Props) => {
     queryFn: () => getSingleNote(id),
   });
 
-  return <NotesClient />;
+  return <HydrationBoundary state={dehydrate(queryClient)}>
+      <NoteDetailsClient />
+    </HydrationBoundary>
 };
 
-export default NoteDetails;

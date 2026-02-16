@@ -93,3 +93,24 @@
 .link:hover {
     background-color: #0b5ed7;
 }
+
+.viewLink {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0d6efd;
+    background-color: transparent;
+    border: 1px solid #0d6efd;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.viewLink:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    text-decoration: none;
+}
